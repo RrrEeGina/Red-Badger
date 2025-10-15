@@ -5,9 +5,11 @@ const steps = { N: [0, 1], E: [1, 0], S: [0, -1], W: [-1, 0] };
 const dangerZones = new Set();
 
 function turnLeft(dir) {
+  return heading[(heading.indexOf(dir) + 3) % 4];
 }
 
 function turnRight(dir) {
+  return heading[(heading.indexOf(dir) + 1) % 4];
 }
 
 function runRobots(inputLines) {
@@ -28,11 +30,27 @@ function runRobots(inputLines) {
       if (cmd === 'L') dir = turnLeft(dir);
       else if (cmd === 'R') dir = turnRight(dir);
       else if (cmd === 'F') {
+        const [dx, dy] = steps[dir];
+        const nx = x + dx;
+        const ny = y + dy;
+
+        if (nx < 0 || nx > maxX || ny < 0 || ny > maxY) {
+          const key = `${x},${y},${dir}`;
+          if (!dangerZones.has(key)) {
+            dangerZones.add(key);
+            lost = true;
+            break;
+          }
+        } else {
+          x = nx;
+          y = ny;
+        }
+      }
     }
 
     console.log(`${x} ${y} ${dir}${lost ? ' LOST' : ''}`);
   }
-}}
+}
 
 // Read input
 const inputLines = fs.existsSync('input.txt')
