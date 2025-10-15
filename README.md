@@ -13,3 +13,9 @@ sample input running:
 ['5 3', '1 1 E', 'RFRFRFRF', '3 2 N', 'FRRFLLFFRRFLL', '0 3 W', 'LLFFFLFLFL'];
 
 you're welcome to change the nput by replacing the above lines in redbadger.js, line 40
+
+To run the test:
+npm test
+
+Infrastructure:
+make sure you have node.js and jest installed 
